@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>SPM Design Developer Portfolio</title>
+
+<style>
+
+:root{
+
+--bg:#040504;
+--panel:#0b0b0b;
+--panel2:#252526;
+
+--text:#c8c8c8;
+--muted:#afae9e;
+
+--accent:#ecffee;
+--accent2:#ffd676;
+--accent3:#76c8ff;
+--midGray:#5e5e5e;
+--sharpTitle:#ffffff;
+
+--border:rgba(246, 240, 208, 0.156);
+
+--radius:5px;
+
+--max:1400px;
+}
+
+[data-theme="light"]{
+
+--bg:#d0d1cf;
+--panel:#eeffed;
+--panel2:#bfc3b3;
+
+--accent:#15315c;
+--accent2:#000000;
+--accent3:#76c8ff;
+--midGray:#5e5e5e;
+--sharpTitle:#000000;
+
+--text:#3d3d33;
+--muted:#71795e;
+
+--border:rgba(170, 249, 150, 0.173);
+
+}
+
+*{
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+
+margin:0;
+
+font-family:
+Inter,
+system-ui,
+sans-serif;
+
+background:var(--bg);
+color:var(--text);
+
+}
+
+    a {
+      color: var(--accent2); 
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      color: var(--accent3); 
+      text-decoration: none;
+    }
+    a:active {
+      color: var(--accent3); 
+      text-decoration: none;
+     
+    }
+
+
+img{
+display:block;
+max-width:100%;
+height:auto;
+}
+
+.wrapper{
+
+width:min(100%,var(--max));
+
+margin:auto;
+
+padding:0 12px;
+
+}
+
+/* ======================
+NAV
+====================== */
+
+header{
+
+position:sticky;
+top:0;
+
+z-index:100;
+
+backdrop-filter:blur(12px);
+
+background:rgba(34, 34, 33, 0.85);
+
+border-bottom:1px solid var(--border);
+
+}
+
+
+.h3 {
+    color: var(--sharpTitle);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.nav{
+text-decoration:none;
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:15px 0;
+
+}
+
+.logo{
+    align-items:center;
+display:flex;
+gap:12px;
+height:auto;
+font-weight:800;
+letter-spacing:.08em;
+text-transform:uppercase;
+
+color:#ffe885;
+
+}
+
+.nav-links{
+
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+
+}
+
+.nav-links a {
+    display: inline-block;
+    padding: 12px 18px;
+
+
+
+border:1px solid var(--accent);
+border-radius:20px;
+
+
+text-decoration:none;
+
+background:var(--panel);
+
+color:var(--accent2);
+
+
+cursor:pointer;
+
+}
+
+
+.nav-links a:hover{
+
+color:var(--accent);
+border:1px solid var(--accent2);
+border-radius:20px;
+
+
+
+}
+
+
+
+.menu-check, .menu-toggle {
+  display: none;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Setup burger icon lines */
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 5px;
+  }
+  .menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #ffd676;
+  }
+
+  /* Hide links by default on mobile */
+  .nav-links {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(34, 34, 33, 0.85);
+    padding: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--accent2);
+    gap: 15px;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  /* CSS MAGIC: Show the menu when checkbox is checked */
+  .menu-check:checked ~ .nav-links {
+    display: flex;
+  }
+}
+
+
+
+/* ======================
+SECTIONS
+====================== */
+
+section{
+
+padding:30px 0;
+
+}
+
+.section-title{
+
+font-size:2.5rem;
+margin:0 0 16px;
+
+}
+
+.section-sub{
+
+max-width:800px;
+color:var(--muted);
+line-height:1.7;
+
+margin-bottom:40px;
+
+}
+
+/* ======================
+HERO
+====================== */
+
+.hero{
+
+display:grid;
+
+grid-template-columns:
+1.4fr
+420px;
+
+gap:40px;
+
+align-items:center;
+
+}
+
+.hero-panel{
+
+background:var(--panel);
+
+border:1px solid var(--border);
+
+padding:40px;
+
+border-radius:var(--radius);
+
+
+
+
+
+}
+
+.hero h1{
+
+margin:0 0 18px;
+
+font-size:clamp(3rem,7vw,5rem);
+
+line-height:.95;
+
+color:var(--sharpTitle);
+
+}
+
+.hero p{
+
+color:var(--muted);
+line-height:1.8;
+
+}
+
+.about p{
+
+color:var(--muted);
+line-height:1.8;
+
+}
+
+.quick-links{
+
+display:grid;
+gap:12px;
+
+}
+
+.quick-links a{
+
+padding:18px;
+
+border-radius:5px;
+
+text-align:center;
+
+background:var(--panel);
+
+border:1px solid var(--border);
+
+text-decoration:none;
+
+color:var(--text);
+
+transition:.25s;
+
+}
+
+.quick-links a:hover{
+
+transform:translateY(-3px);
+color:var(--accent);
+border:1px solid var(--accent2);
+
+
+
+}
+
+/* ======================
+IMAGE SYSTEM
+====================== */
+
+.image-wrap{
+
+overflow:hidden;
+
+border-radius:18px;
+
+}
+
+.gallery-thumb{
+
+width:100%;
+
+cursor:pointer;
+
+transition:transform .25s;
+
+}
+
+
+.projectThumbs{
+
+width:100%;
+
+cursor:pointer;
+border:1px solid var(--accent);
+transition:transform .25s;
+
+  height: 185px;
+  width: 185px;
+
+
+}
+
+.highlight-thumb { 
+  
+  object-fit: scale-down; 
+  height: 200px;
+}
+
+.QuickLooks { 
+  
+  aspect-ratio:1/1;
+  object-fit: cover; 
+  width: 200px;
+  border:1px solid var(--accent);
+  transition:transform .25s;
+
+}
+
+.QuickLooks:hover{
+
+transform:scale(1.1);
+border:1px solid var(--accent3);
+
+}
+
+
+.logo-thumb { 
+  
+  object-fit: scale-down; 
+  height: 60px;
+}
+
+.static-thumb { 
+  
+  object-fit: scale-down; 
+  height: 350px;
+}
+
+.gallery-thumb:hover{
+
+transform:scale(1.05);
+
+}
+
+
+.projectThumbs:hover{
+
+transform:scale(1.085);
+border:1px solid var(--accent3);
+
+}
+
+.banner-image{
+
+aspect-ratio:16/5;
+object-fit:cover;
+
+}
+
+.project-image{
+
+aspect-ratio:4/3;
+object-fit:cover;
+border:1px solid var(--accent);
+transition:transform .25s;
+
+}
+
+
+.project-image:hover{
+
+transform:scale(1.05);
+border:2px solid var(--accent3);
+
+}
+
+/* ======================
+BIO
+====================== */
+
+.bio{
+
+display:grid;
+
+grid-template-columns:
+1fr
+1fr;
+
+gap:30px;
+
+}
+
+.card{
+
+background:var(--panel);
+
+padding:30px;
+
+border-radius:var(--radius);
+
+border:1px solid var(--border);
+
+}
+
+/* ======================
+MASONRY
+====================== */
+
+.gallery{
+
+
+display:grid;
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(220px,1fr)
+);
+
+gap:16px;
+
+
+
+}
+
+.gallery img{
+
+width:auto;
+
+margin-bottom:18px;
+
+border-radius:18px;
+
+break-inside:auto;
+
+}
+
+/* ======================
+PROJECTS
+====================== */
+
+.project{
+
+margin-top:50px;
+
+padding:30px;
+
+background:var(--panel);
+
+border-radius:var(--radius);
+
+border:1px solid var(--border);
+
+}
+
+.project h2{  
+
+
+margin:0 0 18px;
+
+font-size:clamp(3rem,7vw,5rem);
+
+line-height:.95;
+ 
+color:var(--sharpTitle);
+
+
+
+}
+
+.project-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(3,1fr);
+
+gap:16px;
+
+margin-top:20px;
+
+}
+
+/* ======================
+CONTACT
+====================== */
+
+.contact-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+gap:14px;
+
+}
+
+.contact-item{
+
+padding:18px;
+
+border-radius:18px;
+
+background:var(--panel2);
+border:1px solid var(--accent2);
+color:var(--accent);
+
+}
+
+/* ======================
+SOCIAL
+====================== */
+
+.socials{
+
+display:flex;
+flex-wrap:wrap;
+gap:14px;
+
+}
+
+.socials a{
+
+padding:14px 18px;
+
+border-radius:999px;
+
+background:var(--panel2);
+border:1px solid var(--accent3);
+text-decoration:none;
+
+color:var(--accent);
+
+}
+
+/* ======================
+LIGHTBOX
+====================== */
+
+.lightbox{
+
+position:fixed;
+inset:0;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:rgba(0,0,0,.92);
+
+opacity:0;
+visibility:hidden;
+
+transition:.2s;
+
+z-index:9999;
+
+}
+
+.lightbox.active{
+
+opacity:1;
+visibility:visible;
+
+}
+
+.lightbox-content{
+
+display:flex;
+flex-direction:column;
+align-items:center;
+
+gap:18px;
+
+max-width:95vw;
+max-height:95vh;
+
+padding:18px;
+
+}
+
+.lightbox img{
+
+max-width:100%;
+max-height:72vh;
+
+object-fit:contain;
+
+border-radius:16px;
+
+}
+
+.lightbox-caption{
+
+width:100%;
+max-width:900px;
+max-height:7.5rem;
+overflow:auto;
+
+padding:14px 18px;
+
+text-align:left;
+
+font-size:.95rem;
+
+line-height:1.6;
+
+color:var(--text);
+
+background:var(--panel);
+
+border:1px solid var(--border);
+
+border-radius:14px;
+
+}
+
+.lightbox-caption::-webkit-scrollbar{
+  width:8px;
+}
+
+.lightbox-caption::-webkit-scrollbar-track{
+  background:rgba(255,255,255,0.05);
+  border-radius:999px;
+}
+
+.lightbox-caption::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,0.16);
+  border-radius:999px;
+}
+
+.lightbox-close{
+
+min-width:120px;
+height:42px;
+
+border:1px solid var(--accent2);
+
+border-radius:999px;
+
+background:var(--panel);
+
+color:var(--accent2);
+
+font-size:0.95rem;
+
+font-weight:700;
+
+display:inline-flex;
+
+align-items:center;
+
+justify-content:center;
+
+cursor:pointer;
+
+padding:0 18px;
+
+margin:0 auto;
+
+transition:.2s ease;
+
+}
+
+.lightbox-close:hover{
+
+background:var(--accent2);
+
+color:var(--panel);
+
+transform:scale(1.03);
+
+}
+
+
+.lightbox-close{
+
+padding:12px 24px;
+
+border:none;
+
+cursor:pointer;
+
+border-radius:6px;
+
+background:var(--panel);
+
+color:var(--accent);
+
+border:1px solid var(--border);
+
+font-size:14px;
+
+}
+
+
+
+/* ======================
+THEME TOGGLE
+====================== */ 
+
+.theme-toggle{
+
+position:fixed;
+
+right:20px;
+bottom:20px;
+
+width:52px;
+height:52px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+background:var(--panel);
+
+border:1px solid var(--border);
+
+color:var(--accent);
+
+font-size:20px;
+
+z-index:10000;
+
+transition:.2s;
+
+}
+
+.theme-toggle:hover{
+
+transform:translateY(-3px);
+
+}
+
+
+/* ======================
+FOOTER LAYOUT
+====================== */
+
+.footer-layout{
+  display:grid;
+  gap:28px;
+  margin-top: 0;
+}
+
+.footer-layout > section{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.footer-layout > section .card{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+.footer-layout #contact .contact-grid,
+.footer-layout #socials-section .socials{
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+.footer-layout .contact-item{
+  background: var(--panel2);
+  border: 1px solid var(--accent2);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+
+.footer-layout #contact .contact-grid{
+  display:grid;
+  gap: 14px;
+}
+
+.footer-layout .socials{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.footer-layout .socials a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media(min-width:900px){
+  .footer-layout{
+    grid-template-columns: minmax(320px, 1.8fr) minmax(260px, 1fr);
+    align-items: start;
+  }
+  .footer-layout #about{
+    max-width: 100%;
+  }
+  .footer-right-column{
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .footer-layout #contact .contact-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ======================
+FOOTER
+====================== */
+
+footer{
+
+padding:20px 0;
+
+text-align:center;
+
+color:var(--muted);
+
+}
+
+/* ======================
+RESPONSIVE
+====================== */
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.bio{
+grid-template-columns:1fr;
+}
+
+.project-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+</style>
+</head>
+
+<body data-theme="dark">
+
+<header>
+
+<div class="wrapper nav">
+
+<div class="logo">
+    <img class="logo-thumb" src="./images/SmurphshireGoldLogo.png" alt="Logo">
+   
+
+SMURPHSHIRE
+ 
+
+</div>
+
+
+
+    <!-- Hidden Checkbox Toggle -->
+    <input type="checkbox" id="menu-check" class="menu-check">
+    
+    <!-- Burger Button Label -->
+    <label for="menu-check" class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+
+
+<div class="nav-links">
+
+<a href="#home">Home</a>
+<a href="#projects">Projects</a>
+<a href="#about">About</a>
+<a href="#gallery">Gallery</a>
+<a href="#contact">Contacts</a>
+
+<!-- <button class="theme-btn" id="themeToggle">
+Light Mode
+</button>. -->
+
+</div>
+
+</div>
+
+</header>
+
+<div class="wrapper">
+
+<section id="home" class="hero">
+
+<div class="hero-panel">
+
+<h1>
+Creative Developer<br>
+& Print Specialist
+</h1>
+
+
+
+<p>
+Graphic Designer and Print Specialist with 10+ years of advanced experience in Adobe Illustrator and digital-to-physical production. 
+Expert in specialty and large-format printing, RIP workflows, and production file creation. Strong leader and process innovator known for precision, 
+efficiency gains, and high-quality execution under tight deadlines.  Also a Creative Developer and Solo Entrepreneur with a 
+successfully self published tabletop game, Starjourn, 
+available for purchase online now alongside many other personal creative design ventures and projects that stretch that bounds of my creative design abilities.  
+These projects all represent my ambition, drive, and ability to commit and bring projects to finality with success whether working alone or on a team of valued members working 
+to bring large projects to completion.
+
+
+</p>
+
+</div>
+
+<div class="quick-links">
+
+<a href="#project1">
+Starjourn Solo Design Project
+</a>
+
+<a href="#project2">
+Advanced Print Development
+</a>
+
+<a href="#project3">
+Game Design & Prototyping
+</a>
+
+<a href="#project4">
+Illustrator Prepress Script Suites
+</a>
+
+<a href="#project5">
+Other Creative Projects
+</a>
+
+
+</div>
+
+</section>
+
+<section>
+
+
+
+<div class="bio">
+
+<div class="card">
+
+<h3>
+Creative Background
+</h3>
+
+<p>
+
+Designer and team leader specializing in high-efficiency design, production, and workflow development. 
+Blending advanced technical expertise in Adobe Illustrator, Photoshop, and InDesign with a deep understanding of print production, 
+RIP software, and variable data, I bridge the gap between creative design and quality production.</p>
+<p>
+My approach integrates traditional design core values—like typography, layout, and logo design—with forward-thinking operational efficiency. 
+I actively leverage Lean Manufacturing (5S), automation, scripting, and Generative AI workflows to optimize processes and eliminate production bottlenecks. 
+As a collaborative leader, I excel at project management, smart delegation, and guiding teams to deliver high-quality web and print assets on time.</p>
+<p>
+Outside of my day job design work, I am deeply passionate about independent game development. I recently channeled this into independently 
+developing and releasing a complete game project. Handling everything from initial prototyping to final publication has sharpened my problem-solving skills 
+and given me a superb understanding of end-to-end user experience design and how to incorporate that from top to bottom on a creative project. 
+I believe I can be a valuable leader of a creative team or also spearhead any solo project as needed with my robust design foundation.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Core Skills
+</h3>
+
+<p style="line-height: 1.5;">
+
+• Expertise in Adobe Illustrator<br>
+• Strong Knowledge of Adobe CC Products<br>
+• Expert in Print Production Workflows (RIP)<br>
+• Unique abilites in Prepress Automation<br>
+• Specialized & proprietary skills in production<br>
+• Solid foundation in Graphic Design fundamentals<br>
+• Trained in practical application of Design<br>
+• Marketing, Branding, and Visual Id Design<br>
+• Packaging Design and Product Development<br>
+• Expert in developing design workflows Illustrator<br>
+• Solo Entrepreneur and Creative Developer<br>
+• Broad knowledge of multimedia design applications<br>
+• Functional knowledge of working with HTML/CSS/JS<br>
+• Working knowledge of web design & deployment<br>
+• Project Management abilites<br>
+• Lean Manufacturing and 5S standards<br>
+• Team Leader and Project Manager<br>
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<section id="projects">
+  <h2 class="section-title">Selected Projects</h2>
+
+  <!-- Project 1 -->
+  <div class="project" id="project1">
+    <h2>STARJOURN</h2><p></p>
+      <h3>Independent Commercial Game Design Project</h3>
+    <p>StarJourn is an independently conceived and developed creative product that combines graphic design, branding, web development, product design, and virtually all areas of design and development 
+      into a unified entrepreneurial venture. Built from the ground up as a solo undertaking to design a tabletop game, the project involved creating a complete visual identity, 
+      designing physical game components, developing a supporting website, producing marketing materials, and guiding the product from initial concept through to public release. 
+      The goal was to create a recognizable brand and market-ready product but also create a game I envision as a quick and fun sci-fi tabletop experience.  
+      It is available for purchase at Starjourn.net.
+</p>
+    <p> 
+        Every aspect of the project—from logo design and packaging to website development, promotional assets, and user-facing systems—was designed and executed as part of a cohesive ecosystem. 
+        StarJourn demonstrates an entrepreneurial approach to creative development, showcasing the ability to transform an original idea into a fully realized product through multidisciplinary design, 
+        technical execution, strategic branding, and independent project management.</p>
+    <div class="project-grid">
+      <!-- Fixed: Root folder path updated from local disk path -->
+      <img class="gallery-thumb project-image" src="./images/StarjournP1.png" data-lightbox=""  data-caption="Here is a look at the Starjourn Classic Game in play- Players roll dice, overcome event card challenges, and place space location cards to move.">
+      <img class="gallery-thumb project-image" src="./images/StarjournP2.png" data-lightbox=""  data-caption="A close-up shot of some event cards shows the unique gradient color palette used in combination with the other primary black color that makes up the games sci-fi visual identity.">
+      <img class="gallery-thumb project-image" src="./images/StarjournP3.png" data-lightbox=""  data-caption="This shows a rendering of the newest version of Starjourn that uses a scripted program to generate the game boards.  This proprietary code allows custom control over generating endless unique assets for this procedural space exploration game.">
+    </div>
+    <p><h1><center>Check out <a href="https://www.starjourn.net" target="_blank">STARJOURN.NET</a> to see more.</center></h1></p>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project" id="project2">
+    <h2>Advanced Print Design</h2>
+    <p>Over the course of my career in print production and general design, I have worked extensively on the development, refinement, and implementation of advanced production workflows 
+      that bridge the gap between digital design and production. This work has provided deep expertise in automation, prepress operations, production efficiency, quality control, 
+      and the unique technical challenges involved in commercial print environments.  Working in these types of high speed production/design facilities provides unparalleled experience 
+      in working intricately with design files and adapting them to work on various production machines to make a final real world product that ends up in the hands of thousands of people 
+      across the world.</p>
+      
+      <p>
+
+          A significant portion of my contributions has involved helping design and develop proprietary production methodologies, custom workflow systems, and innovative print processes that 
+          pushed beyond conventional industry practices. Although this contributions are significant in there merits, due to the confidential and proprietary nature of much of this work, 
+          specific technical details cannot be disclosed; however, the examples presented below represent a small selection of public projects that reflect the type of work produced.</p>
+    <div class="project-grid">
+      <img class="gallery-thumb project-image" src="./images/NYRRBoroughs2024.jpeg" data-lightbox="" data-caption="Client Work: New York Road Runners 2024 Boroughs Run - A series of award medals for which I oversaw the production of and tailored to provide optimal results for the client.">
+      <img class="gallery-thumb project-image" src="./images/ColumbusMarathon.jpg" data-lightbox="" data-caption="Client Work: Columbus Marathon 2025 Medal Designs - These are the Digital Mock-ups from which we derive final products that will have relief and dimensionality.">
+      <img class="gallery-thumb project-image" src="./images/BostonMedals.jpg" data-lightbox="" data-caption="Client Work: Boston Marathon Medals 2024 - Another example of projects I had a major hand in executing, this image and lighting really captures and emphasizes the special dimensional design">
+    </div>
+  </div>
+
+  <!-- Project 3 -->
+  <div class="project" id="project3">
+    <h2>Game Design</h2>
+    <p>My most recent work has been continued development on solo projects further exploring the avenues of game design. 
+      These projects begin with very defined goals of learning and expanding specific game mechanics and training on an understanding of the logic loops therein. 
+      These four projects below represent a highlight of my experimentation and exploration in developing prototype game projects.</p>
+
+      <p>
+I started with a simple project of branching from the classic tile merger design of 2048 to create my own version called AUGHT that features unique power-ups and an endgame scoring goal. 
+From there, I began working on several similarly based designs to explore feature integration such as physics and connecting those functions with systems like an audio engine to create 
+responsive sound effects.</p>
+
+<p>
+
+Lastly, my current project Ghoulie Grid is at its core a tile-based game not too dissimilar to AUGHT, but the gameplay is changed to a more complex and strategic game more akin to chess.
+ It features a much more robust gameplay loop with enemies, health, specific combat rules, power-ups, and an endless roguelike design. Ghoulie Grid is also in early development of being ported 
+ into the Godot game design engine where it can be expanded on and fleshed out as a fully fledged game.</p>
+
+
+ <p>
+These are developed as HTML prototypes and can be found on a page at my site starjourn.net/arcade where several are available to launch right in any standard browser 
+(desktop or tablet works best). Also there but available to buy is a digital version of my card game Starjourn.
+It plays in browser and automates some of the gameplay functions like rolling and drawing cards while retaining the tactile feel of moving tokens onto a game board and making those movement choices.</p>
+    <div class="project-grid">
+<img class="gallery-thumb project-image" src="./images/Arcade.png" data-lightbox="" data-caption="Hosted on a subpage of my website is this small collection of HTML based game prototypes that I have developed to explore game design and mechanics. Playable in most any web browser, check out www.starjourn.net/arcade to give them a try.">
+      <img class="gallery-thumb project-image" src="./images/Aughtf1.png" data-lightbox="" data-caption="One of my first prototype builds, branching from the classic game 2048, my primary methodoligy is to take core existing game mechanics and build upon them with new ideas and features - in this example I added power-ups, barriers, unique scoring, and an endgame goal that tested my design abilities.">
+      <img class="gallery-thumb project-image" src="./images/GhoulieGrid1.png" data-lightbox="" data-caption="Ghoulie Grid is my most fully developed prototype with a more complex gameplay loop having enemies, combat, level advancement, and more that I play to develop much further in a proper game engine such as Godot.">
+    </div>
+
+        <p><h1><center>Check out <a href="https://www.starjourn.net/arcade" target="_blank">THE ARCADE</a> to try them out!</center></h1></p>
+
+  </div>
+
+
+  
+
+    <!-- Project 4 -->
+<div class="project" id="project4">
+    <h2>Illustrator Script Suites</h2><p></p>
+    <h3>Custom Illustrator Scripting for prepress production & more</h3>
+    <p>Developed from firsthand experience in print production and graphic design, these extension scripts for Adobe Illustrator work as specific use-case tools that address practical 
+      challenges encountered in day-to-day creative work.  Ranging from prepress preparation and file cleanup to batch processing and production-ready asset generation. 
+       By creating these focused and purpose-built scripted solutions I am able to reduce repetitive manual work, improve consistency, and accelerate complex production workflows.  
+       Beyond Illustrator scripts I have even developed html webforms that allow convenience in documenting and reporting in a production environment. 
+        I love to develop small scripted applets that simplify, solve, and even allow for expansion opportunities on mundane design tasks.
+    </p>
+    <p>
+     In addition to production-focused automation, I develop experimental scripting projects that explore procedural design, 
+     dynamic asset generation, and creative tooling for digital applications. Recent work includes generators for graphics and backgrounds,
+      automated asset preparation systems, and my own proprietary scripts used in my game design ventures. This work demonstrates a blend of creative problem-solving and technical 
+      implementation, using scripting as a way to extend design software beyond its standard capabilities and build practical tools tailored to specific creative needs and beyond.
+    </p>
+
+
+    <div class="project-grid">
+      <img class="gallery-thumb project-image" src="./images/ScriptPanelBatcher.png" data-lightbox="" data-caption="A specialized Illustrator script designed for a very common prepress need of batching images into a specific print zone, this script allows quick execution of that task. This perfectly represents how I use Illustrator's script integration features to automate rudimentary prepress tasks but tailored for specific design teams.">
+      <img class="gallery-thumb project-image" src="./images/ScriptPanelLockNKey.png" data-lightbox="" data-caption="This very specific script works as a precise alignment tool geared towards one of my specific workflows. Solving an alignment option not present in Adobe Illustrator, this tool allows alignment of groups relative to key objects within those groups. I use this extensively to set graphics within frames.">
+      <img class="gallery-thumb project-image" src="./images/ScriptPanelStarjourn.png" data-lightbox="" data-caption="The creative generation script used to make assets for my Starjourn game has several options that allow the procedural creation of the space themed game board assets. This was the beginning of my experimentation with this kind of code and graphics combination and evolved over several months to become this sophisticated design engine for my game.">
+    </div>
+  
+
+
+  </div>
+
+      <!-- Project 5 -->
+  <div class="project" id="project5">
+    <h2>Other Creative Works</h2>
+    <p>Beyond my professional design, game development and production work, I've always maintained a strong passion for personal creative projects, freelance work, 
+      and one-off design challenges. Whether designing unique print pieces, or developing highly personalized visual concepts, I enjoy transforming ideas into tangible creations. 
+      These projects often require balancing creativity, problem-solving, and craftsmanship while working within unusual constraints or highly specific goals.</p>
+
+<p>Earlier in my creative journey, I worked with a local independent band, producing promotional flyers, event materials, and social media graphics during the early days of Facebook 
+  and online music marketing. This experience provided valuable insight into visual communication, audience engagement, and adapting designs across both print and emerging digital platforms. 
+  I also worked with a snowboarding upstart called ThumbsUpBirds doing very similar multimedia design work like making simple designs for social media posts but also t-shirt designs and more 
+  which again helped to broaden my skill and experience with diverse client needs.</p>
+
+
+
+<p>I have also pursued a variety of unique personal design project endeavors such as creating a LEGO model and designing the instruction manuals to accompany them, which you can <a href="./images/RV103_Intrepid_Instructions.pdf" target="_blank">click here</a> to view.  
+  I have also explored abstract digital artwork, conceptual product design, and typographic coursework that has helped me to refine my design sensibilities and expand my creative toolkit. 
+  Across all of these projects, one consistent strength has been my ability to quickly learn and adapt to new software, design tools, and specialized workflows. Whether working with 
+  industry-standard applications, niche creative platforms, custom scripting environments, or proprietary production systems, I am able to rapidly understand technical requirements 
+  and leverage the right tools to achieve specific creative and functional objectives.</p>
+<section id="gallery">
+
+
+<div class="gallery">
+
+<img class="QuickLooks" src="./images/Atlas2113.png" data-lightbox="" data-caption="Personal Project: Conceptual Album/Music Cover Design, this was a very early project that I did exploring abstract album designs where I envisioned them being displayed on a smart phone alongside specific songs instead of just albums, the kind of thing that is seen very commonly today in apps like Spotify.">
+<img class="QuickLooks" src="./images/StringTheoryComposite.png" data-lightbox="" data-caption="Band Collateral: Flyer handouts and sticker designs I created with rather specific design requests for a small NH based local band String Theory circa 2012. I also worked with them in creating many of their facebook and social media graphics at the time.">
+<img class="QuickLooks" src="./images/IntrepidLego.png" data-lightbox="" data-caption="Custom LEGO Set: A custom 'midi' or small scale LEGO set design similar to something like the Star Wars Millenium Falcon. Created as a gift, this custom little LEGO ship was designed by me along with an instruction manual in the LEGO style using their 3D design software tools.">
+<img class="QuickLooks" src="./images/AbstsT4.png" data-lightbox="" data-caption="Personal Art Project: Abstract digital artwork design series exploring the fundamentals of color, shape, and composition.  This is a personal project that I have kept running over many years, each piece is purely abstract with the intent only being to explore how your eye moves throughout the piece. I sometimes use these as 'conceptual thumbnails' when thinking of compositon in much larger pieces of artwork.">
+<img class="QuickLooks" src="./images/AA_fanMock1.png" data-lightbox="" data-caption="Conceptual Product Design/Fan Art: These acrylic plaques are a mock-up of a potential product design featuring a unique 'Parallaxing effect' to the design, and for the mock-up subject I chose several of my favorite classic videogames.">
+<img class="QuickLooks" src="./images/RobFrostType.png" data-lightbox="" data-caption="Typographic Coursework: Another example from early in my career as a designer, this was a piece done during my time at Plymouth State University featuring custom typesetting of a Robert Frost quote. The goal was to create a typographic design that was visually interesting and also conveyed the feeling of fall in the mountains.">
+<img class="QuickLooks" src="./images/OwlVector.png" data-lightbox="" data-caption="Coursework: Custom classical vector illustration design of an owl, created as coursework and demonstrating a strong understanding of vector design principles and techniques.  Use of blends, reflection transforms, clipping masks, and other Illustrator techniques expedite the creation of these kinds of graphics if executed properly.">
+<img class="QuickLooks" src="./images/2010WebWork.png" data-lightbox="" data-caption="Web Design Work: From the 2010s, +15 years working in the design field, these concept mock-ups were created for local businesses and a chamber of commerce. Today my web design abilites can be seen in this very portfolio and at starjourn.net, I am able to raw code basic sites and work very well with modern web design tools like Squarespace.">
+<img class="QuickLooks" src="./images/SciFiPoster.png" data-lightbox="" data-caption="Personal Project: Sci-Fi Poster Design experimenting with modern Adobe Illustrator toolsets, techniques, and worksflows- Generative AI is an ethical minefield generally speaking and I try to use it sparingly but I do explore to stay relevant, especially with the tools trained on my own work, demonstrated in this piece that was trained on my card game artwork.">
+<img class="QuickLooks" src="./images/FosterInvite.png" data-lightbox="" data-caption="Coursework: During my time at University potential performers for the Spring Fling show had prospective posters designed in anticipation of their shows by the Student Design Company that I was a member of, this was one such design.">
+
+
+
+</div>
+
+</section>
+
+  </div>
+
+
+
+
+</section>
+
+
+
+<div class="footer-layout">
+
+<section id="about">
+
+<h2 class="section-title">
+About
+</h2>
+
+<div class="card">
+<div class="about p">
+<p>
+
+I'm a New Hampshire born creative individual who has always loved making bold art and visuals that seek to grab attention.  
+I enjoy giving focus to many elements that people consider to be just background dressings like packaging or even internal forms and simple UI/UX moments. 
+My career highlights include designing advanced production workflows used to create stunning products for a number of industry leading 
+clients alongside the publishing of my own solo tabletop game. 
+Driven and passionate with an entrepreneurial spirit, many of my hobbies outside of my professional work end of evolving into some 
+kind of creative venture. When I do get away from my creative station I enjoy a good movie, video game, or getting out to the mountains.  
+For me, nothing beats the stars of a clear night sky and s'mores by the fireside.
+
+<br><br>
+
+<img class="static-thumb" src="./images/milfordphoto1.png" data-lightbox="" >
+</div>
+
+</p>
+
+   
+
+</div>
+
+</section>
+
+
+
+
+
+
+
+<div class="footer-right-column">
+
+  <section id="contact">
+
+<h2 class="section-title">
+Contacts
+</h2>
+
+<div class="contact-grid">
+
+<div class="contact-item">
+Email: Seanpmurphy6@gmail.com
+</div>
+
+<div class="contact-item">
+@smurphshire
+</div>
+
+<div class="contact-item">
+Location: Massachusetts, USA
+</div>
+
+<div class="contact-item">
+Remote Work Capable
+</div>
+
+
+
+
+</div>
+
+</section>
+
+<!--
+<section id="socials-section">
+
+<h2 class="section-title">
+Socials
+</h2>
+
+<div class="socials">
+
+<a href="#">
+LinkedIn
+</a>
+
+<a href="#">
+Instagram
+</a>
+
+<a href="#">
+Behance
+</a>
+
+<a href="#">
+GitHub
+</a>
+
+</div>
+
+</section>
+-->
+</div>
+</div>
+<footer>
+  <p style="color: var(--accent);">
+    Graphic Design & Creative Development </color:> 
+  </p>
+
+<br>
+
+© 2026 Sean Murphy
+
+
+</footer>
+
+</div>
+
+
+
+<button
+    id="themeToggle"
+    class="theme-toggle"
+    aria-label="Toggle theme">
+
+    ☀
+
+</button>
+
+
+
+
+<div id="lightbox" class="lightbox">
+
+    <div class="lightbox-content">
+
+          <img
+              id="lightboxImage"
+              alt="Expanded image">
+
+          <div id="lightboxCaption" class="lightbox-caption"></div>
+
+          <button
+              class="lightbox-close"
+              aria-label="Close lightbox">
+            Close
+          </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* ==========================
+THEME
+========================== */
+
+const themeToggle =
+document.getElementById(
+'themeToggle'
+);
+
+function updateThemeIcon(){
+
+themeToggle.textContent =
+
+document.body.dataset.theme ===
+'dark'
+
+? '☀'
+
+: '🌙';
+
+}
+
+function setTheme(mode){
+
+document.body.dataset.theme =
+mode;
+
+localStorage.setItem(
+'theme',
+mode
+);
+
+updateThemeIcon();
+
+}
+
+setTheme(
+
+localStorage.getItem(
+'theme'
+)
+
+||
+
+'dark'
+
+);
+
+themeToggle.addEventListener(
+'click',
+()=>{
+
+setTheme(
+
+document.body.dataset.theme ===
+'dark'
+
+? 'light'
+
+: 'dark'
+
+);
+
+}
+);
+
+/* ==========================
+LIGHTBOX
+========================== */
+
+const lightboxCaption =
+document.getElementById(
+'lightboxCaption'
+);
+
+
+const lightbox =
+document.getElementById(
+'lightbox'
+);
+
+const lightboxImage =
+document.getElementById(
+'lightboxImage'
+);
+
+const closeButton =
+document.querySelector(
+'.lightbox-close'
+);
+
+function openLightbox(src, caption){
+
+    lightboxImage.src = src;
+
+    lightboxCaption.innerHTML = caption || '';
+
+    lightboxCaption.style.display =
+        caption ? 'block' : 'none';
+
+    lightbox.classList.add('active');
+
+    document.body.style.overflow = 'hidden';
+
+}
+function closeLightbox(){
+
+lightbox.classList.remove(
+'active'
+);
+
+document.body.style.overflow =
+'';
+
+}
+
+document
+.querySelectorAll(
+'[data-lightbox]'
+)
+.forEach(img=>{
+
+img.addEventListener(
+'click',
+()=>{
+
+openLightbox(
+img.src,
+img.dataset.caption
+);
+
+}
+);
+
+});
+
+closeButton.addEventListener(
+'click',
+closeLightbox
+);
+
+lightbox.addEventListener(
+'click',
+e=>{
+
+if(
+e.target === lightbox
+){
+
+closeLightbox();
+
+}
+
+}
+);
+
+document.addEventListener(
+'keydown',
+e=>{
+
+if(
+e.key === 'Escape'
+){
+
+closeLightbox();
+
+}
+
+}
+);
+
+
+
+
+</script>
+
+</body>
+</html>
