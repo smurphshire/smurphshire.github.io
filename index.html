@@ -56,7 +56,7 @@ scroll-behavior:smooth;
 
 body{
 
-margin:0;
+margin:0px;
 
 font-family:
 Inter,
@@ -96,8 +96,12 @@ width:min(100%,var(--max));
 
 margin:auto;
 
-padding:0 12px;
+padding:0 20px;
 
+}
+
+header .wrapper{
+  padding-inline: 20px;
 }
 
 /* ======================
@@ -368,9 +372,7 @@ border:1px solid var(--accent2);
 
 }
 
-/* ======================
-IMAGE SYSTEM
-====================== */
+/* images */
 
 .image-wrap{
 
@@ -413,9 +415,10 @@ transition:transform .25s;
 
 .QuickLooks { 
   
-  aspect-ratio:1/1;
-  object-fit: cover; 
-  width: 200px;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border:1px solid var(--accent);
   transition:transform .25s;
 
@@ -507,30 +510,36 @@ border:1px solid var(--border);
 
 }
 
-/* ======================
-MASONRY
-====================== */
+/* grids */
 
 .gallery{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap:16px;
+}
 
+@media (max-width: 1400px) {
+  .gallery{
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 
-display:grid;
+@media (max-width: 1100px) {
+  .gallery{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(220px,1fr)
-);
-
-gap:16px;
-
-
-
+@media (max-width: 760px) {
+  .gallery{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .gallery img{
 
-width:auto;
+width:100%;
+max-width:100%;
 
 margin-bottom:18px;
 
@@ -586,9 +595,7 @@ margin-top:20px;
 
 }
 
-/* ======================
-CONTACT
-====================== */
+/* contact */
 
 .contact-grid{
 
@@ -612,9 +619,7 @@ color:var(--accent);
 
 }
 
-/* ======================
-SOCIAL
-====================== */
+/* social-hidden */
 
 .socials{
 
@@ -638,9 +643,7 @@ color:var(--accent);
 
 }
 
-/* ======================
-LIGHTBOX
-====================== */
+/* lightbox system */
 
 .lightbox{
 
@@ -800,9 +803,7 @@ font-size:14px;
 
 
 
-/* ======================
-THEME TOGGLE
-====================== */ 
+/* dark and light mode */ 
 
 .theme-toggle{
 
@@ -845,14 +846,13 @@ transform:translateY(-3px);
 }
 
 
-/* ======================
-FOOTER LAYOUT
-====================== */
+/* footer outro */
 
 .footer-layout{
   display:grid;
   gap:28px;
   margin-top: 0;
+  padding-inline: 12px;
 }
 
 .footer-layout > section{
@@ -885,6 +885,8 @@ FOOTER LAYOUT
 
 .footer-layout #contact .contact-grid{
   display:grid;
+    grid-template-columns: 1fr;
+
   gap: 14px;
 }
 
@@ -919,9 +921,7 @@ FOOTER LAYOUT
   }
 }
 
-/* ======================
-FOOTER
-====================== */
+/* clasic footer */
 
 footer{
 
@@ -933,9 +933,7 @@ color:var(--muted);
 
 }
 
-/* ======================
-RESPONSIVE
-====================== */
+/* mobile  */
 
 @media(max-width:900px){
 
@@ -1031,6 +1029,10 @@ to bring large projects to completion.
 </div>
 
 <div class="quick-links">
+
+<a href="#project1">
+<center><img class="logo-thumb" src="./images/PortfolioChips.png" alt="Highlighted Works"></center>
+</a>
 
 <a href="#project1">
 Starjourn Solo Design Project
@@ -1438,9 +1440,7 @@ GitHub
 
 <script>
 
-/* ==========================
-THEME
-========================== */
+/* dark light mode */
 
 const themeToggle =
 document.getElementById(
@@ -1504,9 +1504,7 @@ document.body.dataset.theme ===
 }
 );
 
-/* ==========================
-LIGHTBOX
-========================== */
+/* LIGHTBOX system */
 
 const lightboxCaption =
 document.getElementById(
