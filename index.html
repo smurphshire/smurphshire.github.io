@@ -371,6 +371,30 @@ border:1px solid var(--accent2);
 
 }
 
+.quick-links a.ship-button {
+    padding: 0px !important; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 60px;
+    background: #0a090d !important; 
+    border: 1px solid var(--border);
+    border-radius: 5px;
+}
+
+.quick-links a.ship-button:hover {
+    transform: translateY(-3px);
+    border: 1px solid var(--accent2);
+}
+
+.quick-links a.ship-button canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
 /* images */
 
 .image-wrap{
@@ -1030,9 +1054,243 @@ to bring large projects to completion.
 
 <div class="quick-links">
 
-<a href="#project1">
-<center><img class="logo-thumb" src="./images/PortfolioChips.png" alt="Highlighted Works"></center>
+<a href="#project1" class="ship-button">
+    <canvas id="slickback-canvas"></canvas>
 </a>
+
+<script>
+(function() {
+    const canvas = document.getElementById('slickback-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const shipRadius = 10; 
+    let frame = 0;
+
+    // --- HOVER INTERACTION STATE ---
+    let isHovered = false;
+    let hoverProgress = 0; 
+    
+    const button = canvas.closest('.ship-button');
+    if (button) {
+        button.addEventListener('mouseenter', () => isHovered = true);
+        button.addEventListener('mouseleave', () => isHovered = false);
+    }
+
+    // STARFIELD & ENVIRONMENT CONFIGURATION
+    const starColors = ['#ffffff', '#00f0ff', '#ffeb3b', '#e040fb'];
+    const environmentElements = [];
+    const totalElements = 28;
+
+    function resizeCanvas() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = 60;
+    }
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    for (let i = 0; i < totalElements; i++) {
+        const elementType = Math.random() > 0.70 ? 2 : 1; 
+        environmentElements.push({
+            type: elementType,
+            x: Math.random() * 800,
+            y: 4 + Math.random() * (canvas.height - 8),
+            size: elementType === 1 ? (Math.random() * 1.5 + 0.5) : (Math.random() * 0.6 + 0.6), 
+            length: Math.random() * 14 + 6, 
+            baseSpeed: elementType === 1 ? (Math.random() * 1.5 + 1) : (Math.random() * 4 + 5), 
+            color: elementType === 1 ? starColors[Math.floor(Math.random() * starColors.length)] : '#ffffff', 
+            phase: Math.random() * Math.PI * 2
+        });
+    }
+
+    const smokeParticles = [];
+
+    function animate() {
+        frame++;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // BACKGROUND
+        ctx.fillStyle = '#0a090d';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // --- Boost ---
+        if (isHovered) {
+            hoverProgress += (1 - hoverProgress) * 0.06;
+        } else {
+            hoverProgress += (0 - hoverProgress) * 0.04;
+        }
+
+        // --- Measure boost ---
+        const centerPointX = canvas.width / 2;
+        
+        // Normal wide meandering drift logic
+        const surgeCycle = (frame * 0.008) % (Math.PI * 2);
+        let surgeOffset = 0;
+        if (Math.sin(surgeCycle) > 0.4) {
+            const maxSurgeRange = Math.min(100, canvas.width * 0.25);
+            surgeOffset = Math.pow(Math.sin(surgeCycle) - 0.4, 2) * maxSurgeRange; 
+        }
+        
+        // Drift to right
+        const baseShipX = centerPointX + surgeOffset + Math.sin(frame * 0.04) * 18;
+        
+        // Boost to right
+        const boostOffset = hoverProgress * 45; 
+        
+        const shipX = baseShipX + boostOffset;
+        const shipY = (canvas.height / 2) + Math.cos(frame * 0.05) * 3.5;
+
+        const baseHue = (frame * 0.6) % 360;
+        const plasmaHue = (baseHue + 35) % 360; 
+
+        for (let i = 0; i < environmentElements.length; i++) {
+            let el = environmentElements[i];
+            const activeSpeed = el.baseSpeed * (1 + hoverProgress * 0.8);
+            el.x -= activeSpeed;
+            
+            if (el.x + (el.type === 2 ? el.length : 0) < 0) {
+                el.x = canvas.width + 20;
+                el.y = 4 + Math.random() * (canvas.height - 8);
+            }
+            
+            let opacity = 0.3 + Math.abs(Math.sin(frame * 0.05 + el.phase)) * 0.7;
+            
+            if (el.type === 1) {
+                ctx.fillStyle = el.color;
+                ctx.globalAlpha = opacity;
+                ctx.beginPath(); ctx.arc(el.x, el.y, el.size, 0, Math.PI * 2); ctx.fill();
+            } else {
+                ctx.strokeStyle = '#ffffff';
+                ctx.lineWidth = el.size;
+                ctx.globalAlpha = opacity * 0.25; 
+                ctx.beginPath(); ctx.moveTo(el.x, el.y); ctx.lineTo(el.x + el.length, el.y); ctx.stroke();
+            }
+        }
+        ctx.globalAlpha = 1.0; 
+
+        // Particles
+        const maxPool = 65 + Math.floor(hoverProgress * 35);
+        if (smokeParticles.length < maxPool) {
+            smokeParticles.push({
+                x: shipX - 10,
+                y: shipY + (Math.random() * 6 - 3),
+                size: (Math.random() * 4 + 3) * (1 + hoverProgress * 0.6),
+                speedX: -(Math.random() * 1.2 + 1.0) * (1 + hoverProgress * 1.5), 
+                speedY: (Math.random() * 1.2 - 0.6) * (1 + hoverProgress * 0.5),
+                alpha: 1.0,
+                hue: baseHue
+            });
+        }
+
+        // Trail lenth/size
+        for (let i = smokeParticles.length - 1; i >= 0; i--) {
+            let p = smokeParticles[i];
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.alpha -= 0.015 * (1 - hoverProgress * 0.3); 
+            p.size *= 0.97;   
+            
+            if (p.alpha <= 0) {
+                smokeParticles.splice(i, 1);
+                continue;
+            }
+            
+            ctx.save();
+            ctx.globalAlpha = p.alpha;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = `hsla(${p.hue}, 100%, 55%, 0.6)`;
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 48%, 0.8)`;
+            ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            
+            if (p.alpha > 0.6) {
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 0.4, 0, Math.PI * 2); ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        // Plasma
+        ctx.save();
+        ctx.translate(shipX, shipY);
+        const currentLength = -66 * (1 + hoverProgress * 0.5);
+        let plasmaGrad = ctx.createLinearGradient(0, 0, currentLength, 0); 
+        plasmaGrad.addColorStop(0, '#ffffff'); 
+        plasmaGrad.addColorStop(0.2, `hsla(${plasmaHue}, 100%, 65%, 0.95)`);
+        plasmaGrad.addColorStop(0.7, `hsla(${plasmaHue}, 100%, 55%, 0.45)`);
+        plasmaGrad.addColorStop(1, `hsla(${plasmaHue}, 100%, 40%, 0)`);
+
+        ctx.fillStyle = plasmaGrad;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = `hsla(${plasmaHue}, 100%, 60%, 0.8)`;
+        
+        ctx.beginPath();
+        ctx.moveTo(-10, -4); 
+        ctx.lineTo(currentLength - (Math.abs(Math.sin(frame * 0.7)) * 21), 0.5); 
+        ctx.lineTo(-10, 5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // The Slickback
+        ctx.save();
+        ctx.translate(shipX, shipY);
+        ctx.rotate(Math.PI / 2);
+        ctx.scale(shipRadius / 24, shipRadius / 24);
+        
+        ctx.shadowBlur = 12; ctx.shadowColor = '#ffffff';
+        ctx.lineJoin = 'miter'; ctx.miterLimit = 10; ctx.lineCap = 'square';
+
+        // Base Outline
+        ctx.fillStyle = '#e1c6e5'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(0, -42); ctx.bezierCurveTo(8, -42, 12, -35, 12, -20);
+        ctx.lineTo(56, 44); ctx.lineTo(24, 38); ctx.lineTo(14, 42); ctx.lineTo(0, 32);
+        ctx.lineTo(-14, 42); ctx.lineTo(-24, 38); ctx.lineTo(-56, 44); ctx.lineTo(-12, -20);
+        ctx.bezierCurveTo(-12, -35, -8, -42, 0, -42); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        ctx.shadowBlur = 0; 
+
+        // Thin Nose Accent
+        ctx.fillStyle = '#1e1b18'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(0, -41); ctx.lineTo(6, -37); ctx.lineTo(0, -33); ctx.lineTo(-6, -37); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Core
+        ctx.fillStyle = '#1e1b18'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(0, -32); ctx.bezierCurveTo(6, -32, 8, -26, 8, -12); ctx.lineTo(8, 28); ctx.bezierCurveTo(4, 32, -4, 32, -8, 28); ctx.lineTo(-8, -12); ctx.bezierCurveTo(-8, -26, -6, -32, 0, -32); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillRect(14, -22, 10, 46); ctx.fillRect(-24, -22, 10, 46);
+        ctx.beginPath(); ctx.moveTo(26, -2); ctx.lineTo(52, 40); ctx.lineTo(26, 34); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-26, -2); ctx.lineTo(-52, 40); ctx.lineTo(-26, 34); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Rear Trim Triangles
+        ctx.fillStyle = '#1e1b18'; ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5;
+        ctx.beginPath(); ctx.moveTo(13, 26); ctx.lineTo(25, 26); ctx.lineTo(13, 38); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-13, 26); ctx.lineTo(-25, 26); ctx.lineTo(-13, 38); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Canopy
+        ctx.save();
+        ctx.scale(1.0, 2.0); 
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath(); ctx.arc(0, -5, 4.75, Math.PI, 0, false); ctx.closePath(); ctx.fill();
+        ctx.restore(); 
+
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.5;
+
+        ctx.beginPath(); ctx.moveTo(-6, -4); ctx.lineTo(6, -4); ctx.moveTo(-6, 2); ctx.lineTo(6, 2); ctx.moveTo(-6, 8); ctx.lineTo(6, 8); ctx.stroke();
+        ctx.fillStyle = '#d4b0db'; ctx.beginPath(); ctx.arc(-3, 20, 2.5, 0, Math.PI * 2); ctx.fill(); ctx.fillRect(1, 16, 4, 8);
+        ctx.beginPath(); ctx.moveTo(16, -10); ctx.lineTo(20, -10); ctx.lineTo(22, 14); ctx.lineTo(16, 4); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(-16, -10); ctx.lineTo(-20, -10); ctx.lineTo(-22, 14); ctx.lineTo(-16, 4); ctx.closePath(); ctx.fill();
+
+        ctx.restore();
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+</script>
+
+
 
 <a href="#project1">
 Starjourn Solo Design Project
@@ -1624,7 +1882,7 @@ closeLightbox();
 );
 
 
-
+// Copyright SPM 2026
 
 </script>
 
